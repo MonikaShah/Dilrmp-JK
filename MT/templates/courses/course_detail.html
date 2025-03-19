@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ course.course_name }}</h2>
+    <p><strong>State:</strong> {{ course.state }}</p>
+    <p><strong>State Agency:</strong> {{ course.state_agency }}</p>
+    <p><strong>Venue:</strong> {{ course.venue_name }}</p>
+    <p><strong>Dates:</strong> {{ course.start_date }} - {{ course.end_date }}</p>
+    <a href="{% url 'course_list' %}">Back to Course List</a>
+{% endblock %}

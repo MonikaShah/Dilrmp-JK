@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Attendance for {{ attendance.course.course_name }}</h2>
+    <p><strong>Venue:</strong> {{ attendance.venue_name }}</p>
+    <p><strong>Date:</strong> {{ attendance.training_date }}</p>
+    <p><strong>Master Trainers:</strong></p>
+    <ul>
+        {% for trainer in attendance.master_trainers.all %}
+            <li>{{ trainer.name }} ({{ trainer.specialization_subject }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'attendance_list' %}">Back to Attendance List</a>
+{% endblock %}

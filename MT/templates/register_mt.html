@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Register Master Trainer</h2>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Display Success or Error Messages -->
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>There were some errors in your form:</strong>
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <!-- Form Fields with Bootstrap Styling -->
+            {{ form|crispy }}
+
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
