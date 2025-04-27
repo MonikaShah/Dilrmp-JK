@@ -233,7 +233,76 @@ def quiz_view(request):
             'options': ['Data about the spatial location', 'Data about the characteristics of spatial features', 'Data about the coordinate system', 'Data about the map scale'],
             'answer': 'Data about the characteristics of spatial features'
         },
-        # Add other questions...
+        {
+            'text': 'Which of the following is NOT a raster data format?',
+            'options': ['TIFF', 'JPEG', 'Shapefile', 'IMG'],
+            'answer': 'Shapefile'
+        },
+        {
+            'text': 'What is the main drawback of the Mercator projection?',
+            'options': ['It distorts distances near the equator', 'It distorts shapes near the poles', 'It cannot represent the entire Earth', 'It is difficult to construct'],
+            'answer': 'It distorts shapes near the poles'
+        },
+        {
+            'text': 'What is the main purpose of using map projections?',
+            'options': ['To reduce map size', 'To represent the 3D Earth on a 2D surface', 'To enhance colors', 'To simplify data'],
+            'answer': 'To represent the 3D Earth on a 2D surface'
+        },
+        {
+            'text': 'Which of the following is a common method of georeferencing?',
+            'options': ['Using random points', 'Assigning arbitrary numbers', 'Using Ground Control Points (GCPs)', 'Estimating positions visually'],
+            'answer': 'Using Ground Control Points (GCPs)'
+        },
+        {
+            'text': 'What is the purpose of georeferencing an image?',
+            'options': ['To enhance its resolution', 'To align it with a coordinate system', 'To change its color scheme', 'To compress its size'],
+            'answer': 'To align it with a coordinate system'
+        },
+        {
+            'text': 'Which software is commonly used for georeferencing?',
+            'options': ['Microsoft Word', 'Adobe Photoshop', 'QGIS', 'VLC Media Player'],
+            'answer': 'QGIS'
+        },
+        {
+            'text': 'What is required for accurate georeferencing?',
+            'options': ['High-speed internet', 'Ground Control Points', '3D glasses', 'Color printer'],
+            'answer': 'Ground Control Points'
+        },
+        {
+            'text': 'What is the minimum number of GCPs required for Second-order polynomial transformation?',
+            'options': ['2', '6', '4', '5'],
+            'answer': '6'
+        },
+        {
+            'text': 'Which tool in QGIS is used for georeferencing?',
+            'options': ['Georeferencer', 'Digitizer', 'Map Composer', 'Coordinate Editor'],
+            'answer': 'Georeferencer'
+        },
+        {
+            'text': 'Which of the following is not a step in georeferencing?',
+            'options': ['Adding GCPs', 'Selecting transformation type', 'Digitizing features', 'Saving the georeferenced image'],
+            'answer': 'Digitizing features'
+        },
+        {
+            'text': 'What is the purpose of a map legend?',
+            'options': ['To provide scale', 'To show directions', 'To explain symbols on the map', 'To display map title'],
+            'answer': 'To explain symbols on the map'
+        },
+        {
+            'text': 'All projections cause some kind of what?',
+            'options': ['Accuracy', 'Distortion', 'Perfection', 'Realism'],
+            'answer': 'Distortion'
+        },
+        {
+            'text': 'Which datum is commonly used globally?',
+            'options': ['NAD83', 'WGS84', 'ED50', 'Tokyo Datum'],
+            'answer': 'WGS84'
+        },
+        {
+            'text': 'Local datums are used because:',
+            'options': ['They are free', 'They fit local areas better', 'They are pretty', 'They don’t need coordinates'],
+            'answer': 'They fit local areas better'
+        },
     ]
 
     if request.method == 'POST':
@@ -249,5 +318,5 @@ def quiz_view(request):
                 )
         return redirect('quiz_thankyou')
 
-    # Pass the questions with enumeration to the template
     return render(request, 'quiz.html', {'questions': questions})
+
