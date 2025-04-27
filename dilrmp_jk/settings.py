@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-w=9of!2r)o!dksukq9ijoj_*td8@7dk3vrw!^zkj8@q)-ub$ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['youth.communitygis.in','localhost']
 
 
 # Application definition
