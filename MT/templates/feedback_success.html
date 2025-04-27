@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Thank you for your feedback!</h2>
+    <p>Your response has been recorded successfully.</p>
+    <a href="{% url 'feedback_form' %}" class="btn btn-primary">Submit Another Feedback</a>
+</div>
+{% endblock %}

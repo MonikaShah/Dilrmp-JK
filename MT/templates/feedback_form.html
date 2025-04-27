@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Main Form Section -->
+<div class="container">
+    <h2 class="mt-4">Master Trainer Feedback Form</h2>
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+          {% elif message.tags == 'success' %}
+            <div class="alert alert-success">
+          {% else %}
+            <div class="alert alert-info">
+          {% endif %}
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="container">
+        
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+  <div class="alert alert-danger">
+    <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li>{{ field.label }}: {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+            <!-- Master Trainer ID -->
+            <div class="mb-3">
+                <label for="trainer_id" class="form-label">Master Trainer ID</label>
+                <input type="text" name="trainer_id" id="trainer_id" class="form-control" required>
+            </div>
+    
+            {% for key, question in rating_questions.items %}
+            <div class="mb-3">
+              <label class="form-label">{{ question }}</label>
+              <div class="star-rating" data-name="{{ key }}"></div>
+              <input type="hidden" name="{{ key }}" id="{{ key }}" >
+            </div>
+          {% endfor %}
+    
+           <!-- Dropdown: Materials support -->
+            <div class="mb-3">
+                <label class="form-label">Did training materials support your learning effectively?</label>
+                <select name="materials_support" class="form-control" required>
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+    
+            <!-- Dropdown: Prepared to train -->
+            <div class="mb-3">
+                <label class="form-label">Do you feel prepared to train youth volunteers?</label>
+                <select name="prepared_to_train" class="form-control" required>
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+    
+            <!-- Optional Feedback -->
+            <div class="mb-3">
+                <label class="form-label">Most useful day of the training</label>
+                <textarea name="most_useful_part" class="form-control" rows="3"></textarea>
+            </div>
+    
+               
+            <div class="mb-3">
+                <label class="form-label">What kind of follow-up support would be helpful?</label>
+                <textarea name="follow_up_support" class="form-control" rows="3"></textarea>
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+    
+        <!-- Star Rating Style + Script -->
+        <style>
+            .star-rating {
+                display: inline-flex;
+                flex-direction: row-reverse;
+                font-size: 2rem;
+                cursor: pointer;
+            }
+            .star-rating input {
+                display: none;
+            }
+            .star-rating label {
+                color: #ccc;
+                transition: color 0.2s;
+            }
+            .star-rating input:checked ~ label,
+            .star-rating label:hover,
+            .star-rating label:hover ~ label {
+                color: gold;
+            }
+        </style>
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".star-rating").forEach(function (ratingDiv) {
+                    let inputName = ratingDiv.getAttribute("data-name");
+                    let hiddenInput = document.querySelector(`input[name="${inputName}"]`);
+    
+                    for (let i = 5; i >= 1; i--) {
+                        let radioInput = document.createElement("input");
+                        radioInput.type = "radio";
+                        radioInput.name = inputName + "_star";
+                        radioInput.value = i;
+                        radioInput.id = `${inputName}_${i}`;
+    
+                        let label = document.createElement("label");
+                        label.setAttribute("for", `${inputName}_${i}`);
+                        label.innerHTML = "&#9733;";
+    
+                        ratingDiv.appendChild(radioInput);
+                        ratingDiv.appendChild(label);
+    
+                        radioInput.addEventListener("change", function () {
+                            hiddenInput.value = this.value;
+                        });
+                    }
+                });
+            });
+
+            document.querySelector("form").addEventListener("submit", function (e) {
+                let allHiddenInputs = document.querySelectorAll('input[type="hidden"]');
+                let missing = Array.from(allHiddenInputs).filter(input => input.value === "");
+                if (missing.length > 0) {
+                    e.preventDefault();
+                    alert("Please rate all questions before submitting!");
+                }
+            });
+
+        </script>
+    </div>
+</div>
+
+{% endblock %}

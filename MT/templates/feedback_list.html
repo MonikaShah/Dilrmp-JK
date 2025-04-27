@@ -1,0 +1,307 @@
+{% load custom_filters %}
+<hr>
+<h3 class="mt-5">Feedback Analysis</h3>
+<hr>
+
+<style>
+  .chart-container {
+    width: auto;
+    max-width: 800px;
+    margin: 1cm auto;
+  }
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  table, th, td {
+    border: 1px solid black !important;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 6px;
+    text-align: center;
+  }
+</style>
+
+<div class="container">
+
+  <!-- Radar Chart -->
+  <div class="row justify-content-center">
+    <div class="col-md-10 chart-container text-center">
+      <h5>Skill Confidence Overview (Radar)</h5>
+      <canvas id="radarChart" style="height: 500px;"></canvas>
+    </div>
+  </div>
+
+  <!-- Pie Chart -->
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6 chart-container text-center">
+      <h5>Overall Rating Distribution</h5>
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+  <!-- List of All Ratings -->
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <h5 class="text-center">Skill-wise Average Ratings</h5>
+      <ul class="list-group">
+        {% for key, value in avg_ratings.items %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ key|title|replace:"_ " }}
+            <span class="badge badge-primary badge-pill">{{ value }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  
+  <h3 class="mt-4">User-wise Feedback Submissions</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th>User</th>
+          <th>Submitted On</th>
+          <th>Most Confident Area</th>
+          <th>Least Confident Area</th>
+          {% for key, label in rating_questions.items %}
+            <th>{{ label }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for feedback in feedbacks %}
+          <tr>
+            <td>{{ feedback.trainer_id }}</td>
+            <td>{{ feedback.submitted_at|date:"Y-m-d H:i" }}</td>
+            <td>
+              {% with feedback as user_feedback %}
+                {% with max_ratings|get_item:user_feedback.trainer_id as max_confidence %}
+                  {% for field in rating_questions %}
+                    {% if user_feedback|getattribute:field == max_confidence %}
+                    {{ field|default:""|title|replace:"_, " }}
+                    {% endif %}
+                  {% endfor %}
+                {% endwith %}
+              {% endwith %}
+            </td>
+            <td>
+              {% with feedback as user_feedback %}
+                {% with min_ratings|get_item:user_feedback.trainer_id as min_confidence %}
+                  {% for field in rating_questions %}
+                    {% if user_feedback|getattribute:field == min_confidence %}
+                    {{ field|title|replace:"_, " }}
+                    {% endif %}
+                  {% endfor %}
+                {% endwith %}
+              {% endwith %}
+            </td>
+            {% for key, label in rating_questions.items %}
+              {% with feedback|getattribute:key as rating %}
+                <td 
+                {% if rating == max_ratings|get_item:feedback.trainer_id %}  
+                    style="background-color: #4caf50;" 
+                {% elif rating == min_ratings|get_item:feedback.trainer_id %}
+                    style="background-color: #f44336;" 
+                {% endif %}
+                >
+                  {{ rating }}
+                </td>
+              {% endwith %}
+            {% endfor %}
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="{{ rating_questions|length|add:4 }}" class="text-center">
+              No feedbacks submitted.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6 text-center">
+      <h5>Select User to Display Feedback Chart</h5>
+      <select id="userSelect" class="form-control" onchange="updateUserChart()">
+        <option value="">-- Select a User --</option>
+        {% for feedback in feedbacks %}
+          <option value="{{ feedback.trainer_id }}">{{ feedback.trainer_id }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10 chart-container text-center">
+      <h5>User Confidence Overview (Radar)</h5>
+      <canvas id="userRadarChart" style="height: 500px;"></canvas>
+    </div>
+  </div>
+  
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const avgRatings = {{ avg_ratings|safe }};
+  const ratingLabels = {{ rating_labels|safe }};
+  // const feedbacks = {{ feedbacks|safe }};
+
+  // Pie Chart
+  new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+      labels: ratingLabels,
+      datasets: [{
+        data: Object.values(avgRatings),
+        backgroundColor: [
+          '#4caf50', '#f44336', '#2196f3', '#ff9800', '#9c27b0',
+          '#3f51b5', '#009688', '#cddc39', '#00bcd4', '#e91e63',
+          '#795548', '#607d8b', '#8bc34a'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'right'
+        }
+      }
+    }
+  });
+
+  // Radar Chart
+  const percentRatings = ratingLabels.map(label => {
+    const key = label.toLowerCase().replace(/ /g, '_');
+    const val = avgRatings[key];
+    return val ? ((val / 5) * 100).toFixed(1) : 0;
+  });
+
+  const pointColors = percentRatings.map(percent => {
+    const p = parseFloat(percent);
+    if (p >= 80) return 'rgba(76, 175, 80, 1)';
+    if (p >= 60) return 'rgba(255, 193, 7, 1)';
+    return 'rgba(244, 67, 54, 1)';
+  });
+
+  new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: ratingLabels.map((label, i) => `${label} (${percentRatings[i]}%)`),
+      datasets: [{
+        label: 'Confidence (%)',
+        data: percentRatings,
+        backgroundColor: 'rgba(33, 150, 243, 0.2)',
+        borderColor: '#2196f3',
+        pointBackgroundColor: pointColors,
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: pointColors
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: {
+            stepSize: 20,
+            callback: value => `${value}%`
+          }
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Average Confidence per Skill (%)'
+        },
+        legend: {
+          position: 'top'
+        }
+      }
+    }
+  });
+
+  // radr for wach user 
+  // Function to update the chart based on selected user
+function updateUserChart() {
+  const userId = document.getElementById('userSelect').value;
+  // alert(userId);
+  if (!userId) {
+    // Clear the chart if no user is selected
+    if (userChart) userChart.destroy();
+    return;
+  }
+
+  // Find the selected user's feedback
+  const userFeedback = feedbacks.find(feedback => feedback.trainer_id === userId);
+  if (!userFeedback) return;
+
+  // Get the max and min confident areas for the selected user
+  const maxConfidence = Math.max(...ratingLabels.map(label => userFeedback[label.toLowerCase().replace(/ /g, '_')]));
+  const minConfidence = Math.min(...ratingLabels.map(label => userFeedback[label.toLowerCase().replace(/ /g, '_')]));
+
+  // Map the ratings to a percentage for the radar chart
+  const percentRatings = ratingLabels.map(label => {
+    // Make sure to properly escape special characters in the label
+    const key = label.toLowerCase().replace(/ /g, '_');
+    const val = userFeedback[key] || 0;
+    return ((val / 5) * 100).toFixed(1);
+  });
+
+  // Set point colors based on confidence levels
+  const pointColors = percentRatings.map(percent => {
+    const p = parseFloat(percent);
+    if (p >= 80) return 'rgba(76, 175, 80, 1)';
+    if (p >= 60) return 'rgba(255, 193, 7, 1)';
+    return 'rgba(244, 67, 54, 1)';
+  });
+
+  // Create or update the radar chart
+  if (userChart) userChart.destroy();
+  userChart = new Chart(document.getElementById('userRadarChart'), {
+    type: 'radar',
+    data: {
+      labels: ratingLabels.map((label, i) => `${label} (${percentRatings[i]}%)`),
+      datasets: [{
+        label: `${userId} Confidence (%)`,
+        data: percentRatings,
+        backgroundColor: 'rgba(33, 150, 243, 0.2)',
+        borderColor: '#2196f3',
+        pointBackgroundColor: pointColors,
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: pointColors
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: {
+            stepSize: 20,
+            callback: value => `${value}%`
+          }
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: `${userId}'s Confidence Overview`
+        },
+        legend: {
+          position: 'top'
+        }
+      }
+    }
+  });
+}
+
+</script>

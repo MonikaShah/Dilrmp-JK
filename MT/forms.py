@@ -1,7 +1,12 @@
 # trainers/forms.py
 from django import forms
 from django.utils import timezone
-from .models import MasterTrainer,Course
+from .models import MasterTrainer,Course,MasterTrainerFeedback,MTRecord
+
+YES_NO_CHOICES = [
+    ('yes', 'Yes'),
+    ('no', 'No'),
+]
 
 class CourseForm(forms.ModelForm):
     class Meta:
@@ -50,3 +55,27 @@ class MasterTrainerForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+    
+
+class MasterTrainerFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = MasterTrainerFeedback
+        fields = '__all__'
+        exclude = ['submitted_at']
+        widgets = {
+            'trainer_id': forms.TextInput(attrs={'class': 'form-control'}),
+            'expectations_met': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'most_useful_part': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'implementation_challenges': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'additional_resources': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'follow_up_support': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'application_plan': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'gcp_understanding': forms.RadioSelect(choices=YES_NO_CHOICES),
+            'clarity_of_concepts': forms.RadioSelect(choices=YES_NO_CHOICES), 
+            'materials_support': forms.RadioSelect(choices=YES_NO_CHOICES),
+            'prepared_to_train': forms.RadioSelect(choices=YES_NO_CHOICES),
+        }
+class MTRecordForm(forms.ModelForm):
+    class Meta:
+        model = MTRecord
+        fields = ['mt_id', 'district', 'photo']

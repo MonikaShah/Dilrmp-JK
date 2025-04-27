@@ -1,5 +1,5 @@
 {% load static %}
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,40 @@
 </head>
 <body>
 
-    {% block content %}{% endblock %}
+    <!-- Header Section -->
+    <header class="bg-gradient text-white text-center py-3" style="background: linear-gradient(to right, #005f99, #00aaff);">
+        <!-- Optional Logo: You can add your logo here -->
+        <div class="container">
+            <!-- <img src="{% static 'images/iitb_logo.png' %}" alt="IITB Logo" width="90" class="mb-3"> -->
+        
+            <h1 class="display-5 font-weight-bold text-shadow mb-3">Geospatial Initiatives for Experiential Learning for Youth</h1>
+            <p class="lead font-italic mb-4">Designed by: Geospatial Training and Resource Hub, IIT Bombay</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-white p-2" href="{% url 'home_page' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white p-2" href="{% url 'quiz' %}">Quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white p-2" href="{% url 'feedback_form' %}">Feedback</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content block, where page-specific content will be injected -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer Section -->
+    <footer class="text-center py-4">
+        &copy; 2025 Geospatial Training and Resource Hub, IIT Bombay. All Rights Reserved.
+    </footer>
 
     <!-- Optional: Bootstrap JS and jQuery for additional functionality like modals, tooltips, etc. -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

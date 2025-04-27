@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -147,3 +148,12 @@ STATICFILES_DIRS = [
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('hi', 'Hindi'),
+]
+LANGUAGE_CODE = 'en'
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]

@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Trainer Form</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Optional: Custom CSS for further styling -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-</head>
-<body>
+/* Add this in your 'style.css' or within a <style> tag */
+header, footer {
+    background-color: #007bff; /* Blue background for header/footer */
+    color: white;               /* White text color */
+    padding: 20px 0;            /* Padding around the text */
+    text-align: center;         /* Center-align the text */
+}
 
-    {% block content %}{% endblock %}
-
-    /* <!-- Optional: Bootstrap JS and jQuery for additional functionality like modals, tooltips, etc. --> */
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+footer {
+    font-size: 14px;            /* Smaller font for footer */
+    margin-top: 50px;           /* Adds space between the content and footer */
+}
