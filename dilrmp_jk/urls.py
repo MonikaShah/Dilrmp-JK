@@ -21,7 +21,7 @@ from MT.views import feedback_view,feedback_list,feedback_success,quiz_view  # I
 from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 from django.utils import translation
-from django.conf.urls.i18n import set_language
+from django.views.i18n import set_language
 
 urlpatterns = [
     path('',views.home_page, name='home_page'),

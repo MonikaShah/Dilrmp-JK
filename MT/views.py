@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,HttpResponseRedirect
 from .forms import MasterTrainerFeedbackForm,MTRecordForm
 from .models import MasterTrainerFeedback,MTRecord
 from django.contrib import messages
@@ -10,6 +10,8 @@ from django.db.models import Avg
 from .forms import MasterTrainerFeedbackForm
 from .models import MasterTrainerFeedback,QuizResponse
 from django.conf.urls.i18n import set_language
+from django.utils import translation
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your views here.
@@ -224,84 +226,164 @@ def upload_mt(request):
 def quiz_view(request):
     questions = [
         {
-            'text': 'What is the main purpose of GIS?',
-            'options': ['To create websites', 'To analyze spatial and geographic data', 'To manage financial records', 'To design architectural structures'],
-            'answer': 'To analyze spatial and geographic data'
+            'text': _('What is the main purpose of GIS?'),
+            'options': [
+                _('To create websites'),
+                _('To analyze spatial and geographic data'),
+                _('To manage financial records'),
+                _('To design architectural structures')
+            ],
+            'answer': _('To analyze spatial and geographic data')
         },
         {
-            'text': 'In GIS, what does "attribute data" refer to?',
-            'options': ['Data about the spatial location', 'Data about the characteristics of spatial features', 'Data about the coordinate system', 'Data about the map scale'],
-            'answer': 'Data about the characteristics of spatial features'
+            'text': _('In GIS, what does "attribute data" refer to?'),
+            'options': [
+                _('Data about the spatial location'),
+                _('Data about the characteristics of spatial features'),
+                _('Data about the coordinate system'),
+                _('Data about the map scale')
+            ],
+            'answer': _('Data about the characteristics of spatial features')
         },
         {
-            'text': 'Which of the following is NOT a raster data format?',
-            'options': ['TIFF', 'JPEG', 'Shapefile', 'IMG'],
-            'answer': 'Shapefile'
+            'text': _('Which of the following is NOT a raster data format?'),
+            'options': [
+                _('TIFF'),
+                _('JPEG'),
+                _('Shapefile'),
+                _('IMG')
+            ],
+            'answer': _('Shapefile')
         },
         {
-            'text': 'What is the main drawback of the Mercator projection?',
-            'options': ['It distorts distances near the equator', 'It distorts shapes near the poles', 'It cannot represent the entire Earth', 'It is difficult to construct'],
-            'answer': 'It distorts shapes near the poles'
+            'text': _('What is the main drawback of the Mercator projection?'),
+            'options': [
+                _('It distorts distances near the equator'),
+                _('It distorts shapes near the poles'),
+                _('It cannot represent the entire Earth'),
+                _('It is difficult to construct')
+            ],
+            'answer': _('It distorts shapes near the poles')
         },
         {
-            'text': 'What is the main purpose of using map projections?',
-            'options': ['To reduce map size', 'To represent the 3D Earth on a 2D surface', 'To enhance colors', 'To simplify data'],
-            'answer': 'To represent the 3D Earth on a 2D surface'
+            'text': _('What is the main purpose of using map projections?'),
+            'options': [
+                _('To reduce map size'),
+                _('To represent the 3D Earth on a 2D surface'),
+                _('To enhance colors'),
+                _('To simplify data')
+            ],
+            'answer': _('To represent the 3D Earth on a 2D surface')
         },
         {
-            'text': 'Which of the following is a common method of georeferencing?',
-            'options': ['Using random points', 'Assigning arbitrary numbers', 'Using Ground Control Points (GCPs)', 'Estimating positions visually'],
-            'answer': 'Using Ground Control Points (GCPs)'
+            'text': _('Which of the following is a common method of georeferencing?'),
+            'options': [
+                _('Using random points'),
+                _('Assigning arbitrary numbers'),
+                _('Using Ground Control Points (GCPs)'),
+                _('Estimating positions visually')
+            ],
+            'answer': _('Using Ground Control Points (GCPs)')
         },
         {
-            'text': 'What is the purpose of georeferencing an image?',
-            'options': ['To enhance its resolution', 'To align it with a coordinate system', 'To change its color scheme', 'To compress its size'],
-            'answer': 'To align it with a coordinate system'
+            'text': _('What is the purpose of georeferencing an image?'),
+            'options': [
+                _('To enhance its resolution'),
+                _('To align it with a coordinate system'),
+                _('To change its color scheme'),
+                _('To compress its size')
+            ],
+            'answer': _('To align it with a coordinate system')
         },
         {
-            'text': 'Which software is commonly used for georeferencing?',
-            'options': ['Microsoft Word', 'Adobe Photoshop', 'QGIS', 'VLC Media Player'],
-            'answer': 'QGIS'
+            'text': _('Which software is commonly used for georeferencing?'),
+            'options': [
+                _('Microsoft Word'),
+                _('Adobe Photoshop'),
+                _('QGIS'),
+                _('VLC Media Player')
+            ],
+            'answer': _('QGIS')
         },
         {
-            'text': 'What is required for accurate georeferencing?',
-            'options': ['High-speed internet', 'Ground Control Points', '3D glasses', 'Color printer'],
-            'answer': 'Ground Control Points'
+            'text': _('What is required for accurate georeferencing?'),
+            'options': [
+                _('High-speed internet'),
+                _('Ground Control Points'),
+                _('3D glasses'),
+                _('Color printer')
+            ],
+            'answer': _('Ground Control Points')
         },
         {
-            'text': 'What is the minimum number of GCPs required for Second-order polynomial transformation?',
-            'options': ['2', '6', '4', '5'],
-            'answer': '6'
+            'text': _('What is the minimum number of GCPs required for Second-order polynomial transformation?'),
+            'options': [
+                _('2'),
+                _('6'),
+                _('4'),
+                _('5')
+            ],
+            'answer': _('6')
         },
         {
-            'text': 'Which tool in QGIS is used for georeferencing?',
-            'options': ['Georeferencer', 'Digitizer', 'Map Composer', 'Coordinate Editor'],
-            'answer': 'Georeferencer'
+            'text': _('Which tool in QGIS is used for georeferencing?'),
+            'options': [
+                _('Georeferencer'),
+                _('Digitizer'),
+                _('Map Composer'),
+                _('Coordinate Editor')
+            ],
+            'answer': _('Georeferencer')
         },
         {
-            'text': 'Which of the following is not a step in georeferencing?',
-            'options': ['Adding GCPs', 'Selecting transformation type', 'Digitizing features', 'Saving the georeferenced image'],
-            'answer': 'Digitizing features'
+            'text': _('Which of the following is not a step in georeferencing?'),
+            'options': [
+                _('Adding GCPs'),
+                _('Selecting transformation type'),
+                _('Digitizing features'),
+                _('Saving the georeferenced image')
+            ],
+            'answer': _('Digitizing features')
         },
         {
-            'text': 'What is the purpose of a map legend?',
-            'options': ['To provide scale', 'To show directions', 'To explain symbols on the map', 'To display map title'],
-            'answer': 'To explain symbols on the map'
+            'text': _('What is the purpose of a map legend?'),
+            'options': [
+                _('To provide scale'),
+                _('To show directions'),
+                _('To explain symbols on the map'),
+                _('To display map title')
+            ],
+            'answer': _('To explain symbols on the map')
         },
         {
-            'text': 'All projections cause some kind of what?',
-            'options': ['Accuracy', 'Distortion', 'Perfection', 'Realism'],
-            'answer': 'Distortion'
+            'text': _('All projections cause some kind of what?'),
+            'options': [
+                _('Accuracy'),
+                _('Distortion'),
+                _('Perfection'),
+                _('Realism')
+            ],
+            'answer': _('Distortion')
         },
         {
-            'text': 'Which datum is commonly used globally?',
-            'options': ['NAD83', 'WGS84', 'ED50', 'Tokyo Datum'],
-            'answer': 'WGS84'
+            'text': _('Which datum is commonly used globally?'),
+            'options': [
+                _('NAD83'),
+                _('WGS84'),
+                _('ED50'),
+                _('Tokyo Datum')
+            ],
+            'answer': _('WGS84')
         },
         {
-            'text': 'Local datums are used because:',
-            'options': ['They are free', 'They fit local areas better', 'They are pretty', 'They don’t need coordinates'],
-            'answer': 'They fit local areas better'
+            'text': _('Local datums are used because:'),
+            'options': [
+                _('They are free'),
+                _('They fit local areas better'),
+                _('They are pretty'),
+                _('They don’t need coordinates')
+            ],
+            'answer': _('They fit local areas better')
         },
     ]
 
@@ -320,3 +402,9 @@ def quiz_view(request):
 
     return render(request, 'quiz.html', {'questions': questions})
 
+def set_language(request):
+    user_language = request.POST.get('language', 'en')  # Default to 'en' if not specified
+    print('language selected is',user_language)
+    translation.activate(user_language)  # Activate the chosen language
+    request.session[translation.LANGUAGE_SESSION_KEY] = user_language  # Store the selected language in the session
+    return HttpResponseRedirect(request.POST.get('next', '/'))  # Redirect back to the previous page or home page

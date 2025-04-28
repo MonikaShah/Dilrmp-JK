@@ -10,15 +10,17 @@
     <div class="card p-4" style="max-width: 600px; width: 100%;">
         <h2 class="text-center mb-4">{% trans "GIS Quiz" %}</h2>
 
-        <form method="post" action="{% url 'set_language' %}">
+        <form method="post" action="{% url 'set_language' %}" id="language-form">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
             <div class="mb-3">
-                <select name="language" onchange="this.form.submit()" class="form-control">
+                <select name="language" id="language-select" onchange="submitFormAndAlert()">
                     <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
                     <option value="hi" {% if LANGUAGE_CODE == 'hi' %}selected{% endif %}>हिन्दी</option>
                 </select>
             </div>
         </form>
+        
 
         <form method="post">
             {% csrf_token %}
@@ -47,4 +49,11 @@
     </div>
 
 </div>
+<script>
+    function submitFormAndAlert() {
+        var selectedLanguage = document.getElementById('language-select').value;
+        // alert("You have selected " + selectedLanguage.toUpperCase() + " as your language.");
+        document.getElementById('language-form').submit();  // Submit the form to change the language
+    }
+</script>
 {% endblock %}
