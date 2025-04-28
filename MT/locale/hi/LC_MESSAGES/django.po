@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 10:56+0000\n"
+"POT-Creation-Date: 2025-04-28 12:40+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,342 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: MT/templates/quiz.html:2
+
+#:#: MT/templates/quiz.html:11
 msgid "GIS Quiz"
-msgstr ""
+msgstr "GIS प्रश्नोत्तरी"
 
-#: MT/templates/quiz.html:14
+#: MT/templates/quiz.html:26
 msgid "Trainer ID"
-msgstr ""
+msgstr "प्रशिक्षक आईडी"
 
-#: MT/templates/quiz.html:30
+#: MT/templates/quiz.html:44
 msgid "Submit"
-msgstr "जमा करें"
+msgstr "सेव करें"
 
 #: MT/templates/quiz_thankyou.html:2
 msgid "Thank you for submitting the quiz!"
-msgstr ""
+msgstr "प्रश्नोत्तरी जमा करने के लिए धन्यवाद!"
+
+#: MT/views.py:228
+msgid "What is the main purpose of GIS?"
+msgstr "GIS का मुख्य उद्देश्य क्या है?"
+
+#: MT/views.py:230
+msgid "To create websites"
+msgstr "वेबसाइट बनाने के लिए"
+
+#: MT/views.py:231 MT/views.py:235
+msgid "To analyze spatial and geographic data"
+msgstr "स्थानिक और भौगोलिक डेटा का विश्लेषण करने के लिए"
+
+#: MT/views.py:232
+msgid "To manage financial records"
+msgstr "वित्तीय अभिलेखों का प्रबंधन करने के लिए"
+
+#: MT/views.py:233
+msgid "To design architectural structures"
+msgstr "आर्किटेक्चरल संरचनाओं को डिज़ाइन करने के लिए"
+
+#: MT/views.py:238
+msgid "In GIS, what does \"attribute data\" refer to?"
+msgstr "GIS में \"गुण विशेष डेटा\" किसे संदर्भित करता है?"
+
+#: MT/views.py:240
+msgid "Data about the spatial location"
+msgstr "स्थानिक स्थान के बारे में डेटा"
+
+#: MT/views.py:241 MT/views.py:245
+msgid "Data about the characteristics of spatial features"
+msgstr "स्थानिक विशेषताओं की विशेषताओं के बारे में डेटा"
+
+#: MT/views.py:242
+msgid "Data about the coordinate system"
+msgstr "निर्देशांक प्रणाली के बारे में डेटा"
+
+#: MT/views.py:243
+msgid "Data about the map scale"
+msgstr "नक्शे के पैमाने के बारे में डेटा"
+
+#: MT/views.py:248
+msgid "Which of the following is NOT a raster data format?"
+msgstr "निम्नलिखित में से कौन सा एक रास्टर डेटा प्रारूप नहीं है?"
+
+#: MT/views.py:250
+msgid "TIFF"
+msgstr "TIFF"
+
+#: MT/views.py:251
+msgid "JPEG"
+msgstr "JPEG"
+
+#: MT/views.py:252 MT/views.py:255
+msgid "Shapefile"
+msgstr "शेपफाइल"
+
+#: MT/views.py:253
+msgid "IMG"
+msgstr "IMG"
+
+#: MT/views.py:258
+msgid "What is the main drawback of the Mercator projection?"
+msgstr "मेरकेटर प्रक्षेपण की मुख्य कमी क्या है?"
+
+#: MT/views.py:260
+msgid "It distorts distances near the equator"
+msgstr "यह विषुवत रेखा के पास दूरियों को विकृत करता है"
+
+#: MT/views.py:261 MT/views.py:265
+msgid "It distorts shapes near the poles"
+msgstr "यह ध्रुवों के पास आकृतियों को विकृत करता है"
+
+#: MT/views.py:262
+msgid "It cannot represent the entire Earth"
+msgstr "यह पूरी पृथ्वी का प्रतिनिधित्व नहीं कर सकता"
+
+#: MT/views.py:263
+msgid "It is difficult to construct"
+msgstr "इसे बनाना कठिन है"
+
+#: MT/views.py:268
+msgid "What is the main purpose of using map projections?"
+msgstr "नक्शा प्रक्षेपण का उपयोग करने का मुख्य उद्देश्य क्या है?"
+
+#: MT/views.py:270
+msgid "To reduce map size"
+msgstr "नक्शे का आकार कम करने के लिए"
+
+#: MT/views.py:271 MT/views.py:275
+msgid "To represent the 3D Earth on a 2D surface"
+msgstr "3D पृथ्वी को 2D सतह पर प्रदर्शित करने के लिए"
+
+#: MT/views.py:272
+msgid "To enhance colors"
+msgstr "रंगों को बेहतर बनाने के लिए"
+
+#: MT/views.py:273
+msgid "To simplify data"
+msgstr "डेटा को सरल बनाने के लिए"
+
+#: MT/views.py:278
+msgid "Which of the following is a common method of georeferencing?"
+msgstr "निम्नलिखित में से कौन सा जियोरेफरेंसिंग की एक सामान्य विधि है?"
+
+#: MT/views.py:280
+msgid "Using random points"
+msgstr "किसी भी बिंदु का उपयोग करना"
+
+#: MT/views.py:281
+msgid "Assigning arbitrary numbers"
+msgstr "जो मन आए वह नंबर देना"
+
+#: MT/views.py:282 MT/views.py:285
+msgid "Using Ground Control Points (GCPs)"
+msgstr "ग्राउंड कंट्रोल पॉइंट्स (GCPs) का उपयोग करना"
+
+#: MT/views.py:283
+msgid "Estimating positions visually"
+msgstr "दृश्य रूप से स्थिति का अनुमान लगाना"
+
+#: MT/views.py:288
+msgid "What is the purpose of georeferencing an image?"
+msgstr "किसी छवि को जियोरेफरेंस करने का उद्देश्य क्या है?"
+
+#: MT/views.py:290
+msgid "To enhance its resolution"
+msgstr "इसके रिज़ॉल्यूशन को बढ़ाने के लिए"
+
+#: MT/views.py:291 MT/views.py:295
+msgid "To align it with a coordinate system"
+msgstr "इसे एक निर्देशांक प्रणाली के साथ संरेखित करने के लिए"
+
+#: MT/views.py:292
+msgid "To change its color scheme"
+msgstr "इसके रंग संयोजन को बदलने के लिए"
+
+#: MT/views.py:293
+msgid "To compress its size"
+msgstr "इसके आकार को संकुचित करने के लिए"
+
+#: MT/views.py:298
+msgid "Which software is commonly used for georeferencing?"
+msgstr "जियोरेफरेंसिंग के लिए सामान्यतः किस सॉफ़्टवेयर का उपयोग किया जाता है?"
+
+#: MT/views.py:300
+msgid "Microsoft Word"
+msgstr "माइक्रोसॉफ्ट वर्ड"
+
+#: MT/views.py:301
+msgid "Adobe Photoshop"
+msgstr "एडोबी फोटोशॉप"
+
+#: MT/views.py:302 MT/views.py:305
+msgid "QGIS"
+msgstr "QGIS"
+
+#: MT/views.py:303
+msgid "VLC Media Player"
+msgstr "VLC मीडिया प्लेयर"
+
+#: MT/views.py:308
+msgid "What is required for accurate georeferencing?"
+msgstr "सटीक जियोरेफरेंसिंग के लिए क्या आवश्यक है?"
+
+#: MT/views.py:310
+msgid "High-speed internet"
+msgstr "उच्च गति वाला इंटरनेट"
+
+#: MT/views.py:311 MT/views.py:315
+msgid "Ground Control Points"
+msgstr "ग्राउंड कंट्रोल पॉइंट्स"
+
+#: MT/views.py:312
+msgid "3D glasses"
+msgstr "3D चश्मे"
+
+#: MT/views.py:313
+msgid "Color printer"
+msgstr "कलर प्रिंटर"
+
+#: MT/views.py:318
+msgid ""
+"What is the minimum number of GCPs required for Second-order polynomial "
+"transformation?"
+msgstr "द्वितीय क्रम बहुपद रूपांतरण के लिए न्यूनतम कितने GCPs आवश्यक हैं?"
+
+#: MT/views.py:320
+msgid "2"
+msgstr "2"
+
+#: MT/views.py:321 MT/views.py:325
+msgid "6"
+msgstr "6"
+
+#: MT/views.py:322
+msgid "4"
+msgstr "4"
+
+#: MT/views.py:323
+msgid "5"
+msgstr "5"
+
+#: MT/views.py:328
+msgid "Which tool in QGIS is used for georeferencing?"
+msgstr "QGIS में जियोरेफरेंसिंग के लिए किस टूल का उपयोग किया जाता है?"
+
+#: MT/views.py:330 MT/views.py:335
+msgid "Georeferencer"
+msgstr "जियोरेफेरेंसर"
+
+#: MT/views.py:331
+msgid "Digitizer"
+msgstr "डिजिटाइज़र"
+
+#: MT/views.py:332
+msgid "Map Composer"
+msgstr "मैप कम्पोज़र"
+
+#: MT/views.py:333
+msgid "Coordinate Editor"
+msgstr "निर्देशांक संपादक"
+
+#: MT/views.py:338
+msgid "Which of the following is not a step in georeferencing?"
+msgstr "निम्नलिखित में से कौन सा जियोरेफरेंसिंग का चरण नहीं है?"
+
+#: MT/views.py:340
+msgid "Adding GCPs"
+msgstr "GCPs जोड़ना"
+
+#: MT/views.py:341
+msgid "Selecting transformation type"
+msgstr "रूपांतरण प्रकार का चयन करना"
+
+#: MT/views.py:342 MT/views.py:345
+msgid "Digitizing features"
+msgstr "विशेषताओं का डिजिटाइजेशन करना"
+
+#: MT/views.py:343
+msgid "Saving the georeferenced image"
+msgstr "जियोरेफरेंस की गई छवि को सहेजना"
+
+#: MT/views.py:348
+msgid "What is the purpose of a map legend?"
+msgstr "नक्शा किंवदंती (legend) का उद्देश्य क्या है?"
+
+#: MT/views.py:350
+msgid "To provide scale"
+msgstr "पैमाना प्रदान करना"
+
+#: MT/views.py:351
+msgid "To show directions"
+msgstr "दिशाएँ दिखाना"
+
+#: MT/views.py:352 MT/views.py:355
+msgid "To explain symbols on the map"
+msgstr "नक्शे पर प्रतीकों को समझाना"
+
+#: MT/views.py:353
+msgid "To display map title"
+msgstr "नक्शे का शीर्षक प्रदर्शित करना"
+
+#: MT/views.py:358
+msgid "All projections cause some kind of what?"
+msgstr "सभी प्रक्षेपण किस प्रकार की समस्या उत्पन्न करते हैं?"
+
+#: MT/views.py:360
+msgid "Accuracy"
+msgstr "सटीकता"
+
+#: MT/views.py:361 MT/views.py:365
+msgid "Distortion"
+msgstr "विकृति"
+
+#: MT/views.py:362
+msgid "Perfection"
+msgstr "पूर्णता"
+
+#: MT/views.py:363
+msgid "Realism"
+msgstr "यथार्थता"
+
+#: MT/views.py:368
+msgid "Which datum is commonly used globally?"
+msgstr "वैश्विक स्तर पर सामान्यतः किस डेटम का उपयोग किया जाता है?"
+
+#: MT/views.py:370
+msgid "NAD83"
+msgstr "NAD83"
+
+#: MT/views.py:371 MT/views.py:375
+msgid "WGS84"
+msgstr "WGS84"
+
+#: MT/views.py:372
+msgid "ED50"
+msgstr "ED50"
+
+#: MT/views.py:373
+msgid "Tokyo Datum"
+msgstr "टोक्यो डेटम"
+
+#: MT/views.py:378
+msgid "Local datums are used because:"
+msgstr "स्थानीय डेटम का उपयोग क्यों किया जाता है?"
+
+#: MT/views.py:380
+msgid "They are free"
+msgstr "वे निःशुल्क हैं"
+
+#: MT/views.py:381 MT/views.py:385
+msgid "They fit local areas better"
+msgstr "वे स्थानीय क्षेत्रों के लिए बेहतर उपयुक्त होते हैं"
+
+#: MT/views.py:382
+msgid "They are pretty"
+msgstr "वे सुंदर होते हैं"
+
+#: MT/views.py:383
+msgid "They don’t need coordinates"
+msgstr "उन्हें निर्देशांकों की आवश्यकता नहीं होती"
+
