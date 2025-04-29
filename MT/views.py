@@ -218,9 +218,12 @@ def upload_mt(request):
         form = MTRecordForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('upload_mt')  # redirect to a thank-you or list view
+            # Add success message
+            messages.success(request, 'Screenshot submitted successfully. Thank you!')
+            return redirect('upload_mt')  # Redirect to the same page or a different page after submission
     else:
         form = MTRecordForm()
+
     return render(request, 'upload_mt.html', {'form': form})
 
 def quiz_view(request):
