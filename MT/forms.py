@@ -78,4 +78,9 @@ class MasterTrainerFeedbackForm(forms.ModelForm):
 class MTRecordForm(forms.ModelForm):
     class Meta:
         model = MTRecord
-        fields = ['mt_id', 'district', 'photo']
+        fields = ['mt_id', 'day', 'question_number', 'image_description', 'photo']
+        widgets = {
+            'day': forms.Select(choices=[(f"Day {i}", f"Day {i}") for i in range(1, 6)]),
+            'question_number': forms.Select(choices=[(i, f"Question {i}") for i in range(1, 11)]),
+            'image_description': forms.TextInput(attrs={'placeholder': 'Enter a short description'}),
+        }
