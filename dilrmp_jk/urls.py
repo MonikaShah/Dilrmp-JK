@@ -22,6 +22,9 @@ from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 from django.utils import translation
 from django.views.i18n import set_language
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('',views.home_page, name='home_page'),
@@ -40,7 +43,7 @@ urlpatterns = [
     path('quiz/', quiz_view, name='quiz'),
     path('quiz/thankyou/', TemplateView.as_view(template_name='quiz_thankyou.html'), name='quiz_thankyou'),
     # path('set_language/', set_language, name='set_language'),  # Ensure this line exists
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += i18n_patterns(
     path('set_language/', set_language, name='set_language'),
     )
