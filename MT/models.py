@@ -130,12 +130,18 @@ class MasterTrainerFeedback(models.Model):
 
 class MTRecord(models.Model):
     mt_id = models.CharField(max_length=20)
-    district = models.CharField(max_length=100)
-    datetime = models.DateTimeField(auto_now_add=True)  # sets current datetime automatically    photo = models.ImageField(upload_to='mt_photos/')
+    day = models.CharField(max_length=20)  # increased
+    question_number = models.CharField(max_length=20)  # increased
+    image_description = models.TextField(blank=True, null=True)
     photo = models.ImageField(upload_to='mt_photos/')
-    def __str__(self):
-        return f"{self.mt_id} - {self.district}"
+    datetime = models.DateTimeField(auto_now_add=True)  # automatically non-editable
     
+    class Meta:
+        db_table = 'MT_mtrecord'  # Specify the desired table name
+    
+    def __str__(self):
+        return f"{self.mt_id} - {self.day} - Q{self.question_number}"
+
 class QuizResponse(models.Model):
     trainer_id = models.CharField(max_length=100)
     question = models.TextField()
